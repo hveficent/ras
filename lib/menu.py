@@ -1,4 +1,4 @@
-import json
+ import json
 import logging
 import os
 import threading
@@ -61,7 +61,7 @@ INPUT_PIN_OK = 29  # Pin for the OK button
 GPIO.setup(INPUT_PIN_OK, GPIO.IN)  # Set our input pin to be an input
 
 OLED1106 = display_drawing.DisplayDrawning()
-
+ 
 
 def get_admin_id():
     if os.path.isfile(os.path.abspath(
@@ -110,15 +110,17 @@ def instance_connection():
 
 # Create a function to run when the input is high
 def inputStateDown(channel):
-    global on_Down
+    global on_Down, on_menu
     _logger.debug('Down Pressed')
-    on_Down = True
+    if on_menu:
+        on_Down = True
 
 
 def inputStateOK(channel):
-    global on_OK
+    global on_OK, on_menu
     _logger.debug('OK Pressed')
-    on_OK = True
+    if on_menu:
+        on_OK = True
 
 
 GPIO.add_event_detect(INPUT_PIN_DOWN, GPIO.FALLING, callback=inputStateDown,

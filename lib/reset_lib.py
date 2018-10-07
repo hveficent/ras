@@ -17,50 +17,56 @@ def is_wifi_active():
     return wifi_active
 
 
-def get_ip():
+def get_ip(cnt=0):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # doesn't even have to be reachable
         s.connect(('8.8.8.8', 80))
-        IP = s.getsockname()[0]
-    except:
-        IP = 'not determined'
+        ip = s.getsockname()[0]
+    except Exception as e:
+        _logger.error("%s for loop %s", e, cnt)
+        if cnt > 100:
+            ip = 'unable'
         wifi = is_wifi_active()
         while not wifi:
-            if not have_internet():
-                IP = '127.0.0.1'
+            if not is_wifi_active():
+                ip = 'no active wifi'
                 break
             else:
-                IP = get_ip()
+                ip = get_ip(cnt=+1)
                 wifi = True
     finally:
         s.close()
-    return IP
- 
+    return ip
 
 
 def reset_to_host_mode():
     os.system('sudo wifi-connect --portal-ssid "RFID Attendance System"')
     os.system('sudo systemctl restart ras-portal.service')
 
+
 def reset_params():
     global on_menu
     os.system('sudo rm /home/pi/ras/dicts/data.json')
     on_menu = True
+
 
 def update_repo():
     os.chdir('/home/pi/ras')
     os.system("sudo git fetch origin stable")
     os.system('sudo git reset --hard origin/stable')
 
+
 def reboot():
     print("rebooting")
     os.system('sudo reboot')
+
 
 def run_tests():
     os.chdir('/home/pi/ras')
     os.system('sudo sh run_tests.sh')
     
+
 def have_internet():
     _logger.debug("check internet connection")
     conn = httplib.HTTPConnection("www.google.com", timeout=10)
