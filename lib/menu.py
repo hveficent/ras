@@ -10,7 +10,7 @@ from lib.tz_dic import tz_dic
 from lib import MFRC522, PasBuz, display_drawing, odoo_xmlrpc
 from lib.reset_lib import (can_connect, is_wifi_active, reboot,
                            reset_to_host_mode, update_repo, run_tests,
-                           reset_params)
+                           toggle_portal)
 
 _logger = logging.getLogger(__name__)
 
@@ -25,6 +25,9 @@ enter = False
 on_Down = False
 on_OK = False
 ap_mode = False
+
+portal_status = False
+toggle_portal(portal_status)
 
 odoo = False
 
@@ -252,13 +255,9 @@ def settings():
     _logger.debug("Other settings selected")
 
 
-def reset_parameters():
-    global on_menu
-    _logger.debug("Resetting parameters")
-    if os.path.isfile(os.path.abspath(
-            os.path.join(WORK_DIR, 'dicts/data.json'))):
-        reset_params()
-        reboot_system()
+def toggle_ras_portal():
+    global on_menu, portal_status
+    portal_status = toggle_portal(portal_status)
     on_menu=True
 
 def update_firmware():
@@ -301,17 +300,18 @@ def update_firmware():
 
 ops={'0': rfid_hr_attendance, '1': rfid_reader, '2': settings,
        '3': reboot_system,
-       '4': reset_settings, '5': update_firmware, '6': reset_parameters}
+       '4': reset_settings, '5': update_firmware, '6': toggle_ras_portal}
 
 
 def select_menu(menu_sel, pos):
     global on_OK
     global on_Down
+    global portal_status
     enter=False
     if menu_sel == 1:
-        OLED1106.display_menu('Main', pos)
+        OLED1106.display_menu('Main', pos, portal_status)
     elif menu_sel == 2:
-        OLED1106.display_menu('Settings', pos)
+        OLED1106.display_menu('Settings', pos, portal_status)
     try:
         # Check if the OK button is pressed
         if on_OK:

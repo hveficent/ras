@@ -33,12 +33,6 @@ dic = {
     'reading': ['Reading...', 25, 1, 0, 0, 20]
 }
 
-menus = {
-    'Main': ["RFID - Odoo", "RFID reader", "Settings", "Reboot"],
-    'Settings': ["WiFi Reset", "Update RAS", "Reset Data", "Back"],
-}
-
-
 class DisplayDrawning(object):
 
     def __init__(self):
@@ -48,8 +42,12 @@ class DisplayDrawning(object):
             os.path.join(WORK_DIR, 'images'))
         self.device = get_device()
 
-    def display_menu(self, menu, loc):
+    def display_menu(self, menu, loc, portal_status=False):
         m_font = ImageFont.truetype(self.font_ttf, 16)
+        menus = {
+            'Main': ["RFID - Odoo", "RFID reader", "Settings", "Reboot"],
+            'Settings': ["WiFi Reset", "Update RAS", ("%s Portal" % 'Enable' if portal_status else 'Disable'), "Back"],
+            }
         with canvas(self.device) as draw:
             if loc == 0:
                 draw.rectangle((3, 1, 124, 16), outline="white", fill="white")
