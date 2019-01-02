@@ -46,7 +46,7 @@ class DisplayDrawning(object):
         m_font = ImageFont.truetype(self.font_ttf, 16)
         menus = {
             'Main': ["RFID - Odoo", "RFID reader", "Settings", "Reboot"],
-            'Settings': ["WiFi Reset", "Update RAS", ("Portal %s" % 'OFF' if portal_status else 'ON'), "Back"],
+            'Settings': ["WiFi Reset", "Update RAS", "Portal %s" % ('OFF' if portal_status else 'ON'), "Back"],
             }
         with canvas(self.device) as draw:
             if loc == 0:
