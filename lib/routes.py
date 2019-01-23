@@ -25,6 +25,7 @@ class ServerThread(threading.Thread):
 
     def __init__(self, app):
         threading.Thread.__init__(self)
+        app.secret_key = os.urandom(12)
         self.srv = make_server(str(get_ip()), 3000, app, ssl_context='adhoc')
         self.ctx = app.app_context()
         self.ctx.push()
@@ -40,7 +41,6 @@ def start_server():
     global server
     global app
     app = Flask('odoo_config_params')
-    app.secret_key = os.urandom(12)
     server = ServerThread(app)
     server.start()
 
