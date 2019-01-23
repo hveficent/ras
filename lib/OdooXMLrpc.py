@@ -83,7 +83,6 @@ class OdooXMLrpc():
         except Exception as e:
             print('_get_user_id error: '+str(e))
             raise e
-            return False
 
     def check_attendance(self, card):
         try:

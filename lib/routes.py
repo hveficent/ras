@@ -25,7 +25,7 @@ class ServerThread(threading.Thread):
 
     def __init__(self, app):
         threading.Thread.__init__(self)
-        self.srv = make_server(str(get_ip()), 3000, app)
+        self.srv = make_server(str(get_ip()), 3000, app, ssl_context='adhoc')
         self.ctx = app.app_context()
         self.ctx.push()
 
