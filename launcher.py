@@ -102,4 +102,5 @@ handler = logging.handlers.TimedRotatingFileHandler(
 )
 handler.setFormatter(RASFormatter(format))
 logging.getLogger().addHandler(handler)
+_logger.setLevel(logging.INFO)
 main_loop()
