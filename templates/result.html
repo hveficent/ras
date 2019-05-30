@@ -16,7 +16,11 @@
                         </tr>
                 </thead>
                 <tbody class="table-hover">
-
+                        {% if result["mode"] == 'direct' %}
+                        <tr>
+                                <td class="text-left"> Mode</th>
+                                <td class="text-left"> {{ result["mode"] }} </td>
+                        </tr>
                         <tr>
                                 <td class="text-left"> Odoo Host </th>
                                 <td class="text-left"> {{ result["odoo_host"] }} </td>
@@ -49,8 +53,28 @@
                                 <td class="text-left"> Current Version </th>
                                 <td class="text-left"> {{ result["version"] }} </td>
                         </tr>
-                        <!-- <button type="submit" name="Log in" value="Log in" class="btn btn-primary btn-large btn-block">Log in</button>
-                        <button type="submit" name="Reset credentials" value="Reset credentials" class="btn btn-primary btn-large btn-block">Reset Credentials</button> -->
+                        {% else %}
+                        <tr>
+                                <td class="text-left"> Mode</th>
+                                <td class="text-left"> {{ result["mode"] }} </td>
+                        </tr>
+                        <tr>
+                                <td class="text-left"> IoT Url</th>
+                                <td class="text-left"> {{ result["odoo_link"] }} </td>
+                        </tr>
+                        <tr>
+                                <td class="text-left"> Admin ID </th>
+                                <td class="text-left"> {{ result["admin_id"] }} </td>
+                        </tr>
+                        <tr>
+                                <td class="text-left"> Timezone </th>
+                                <td class="text-left"> {{ result["timezone"] }} </td>
+                        </tr>
+                        <tr>
+                                <td class="text-left"> Current Version </th>
+                                <td class="text-left"> {{ result["version"] }} </td>
+                        </tr>
+                        {% endif %}
                 </tbody>
         </table>
 

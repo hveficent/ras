@@ -44,15 +44,15 @@ class OdooXMLrpc:
             self.url_template = False
             self.uid = False
         else:
-            self.db = self.j_data["db"][0]
             self.user = self.j_data["user_name"][0]
             self.pswd = self.j_data["user_password"][0]
             self.host = self.j_data["odoo_host"][0]
             self.port = self.j_data["odoo_port"][0]
-            if "iot_call" in self.j_data:
+            if "iot" in self.j_data['mode'][0]:
                 self.iot_call = True
             else:
                 self.iot_call = False
+                self.db = self.j_data["db"][0]
             self.adm = self.j_data["admin_id"][0]
             self.tz = self.j_data["timezone"][0]
 

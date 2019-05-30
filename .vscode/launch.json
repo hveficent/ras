@@ -1,16 +1,20 @@
 {
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [{
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
         {
             "name": "Attach to RAS",
             "type": "python",
             "request": "attach",
-            "pathMappings": [
-                {
-                    "localRoot": "${workspaceRoot}",
-                    "remoteRoot": "/home/pi/ras"
-                }
-            ],
+            "pathMappings": [{
+                "localRoot": "${workspaceRoot}",
+                "remoteRoot": "/home/pi/ras"
+            }],
             "port": 6899,
             "host": "raspberrypi.local",
             "subProcess": true

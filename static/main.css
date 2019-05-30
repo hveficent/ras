@@ -10,7 +10,7 @@ body {
   background-color: #3498DB;
 }
 
-form {
+.container {
   max-width: 300px;
   margin: 10px auto;
   padding: 10px 20px;
@@ -112,7 +112,7 @@ label.light {
 
 @media screen and (min-width: 480px) {
 
-  form {
+  .container {
     max-width: 480px;
   }
 

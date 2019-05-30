@@ -9,3 +9,4 @@ dicts/credentials.json
 dicts/data.json
 attendances.*
 sync_flag.*
+ras_portal_dev.py
