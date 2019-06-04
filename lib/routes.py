@@ -64,7 +64,7 @@ def start_server():
         if request.method == 'POST':
             results = request.form
             result_dic = results.to_dict(flat=False)
-            if result_dic['mode'] == 'iot':
+            if result_dic['mode'][0] == 'iot':
                 result = json.loads(requests.post(
                     result_dic['odoo_link'][0],
                     data={
