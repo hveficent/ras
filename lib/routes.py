@@ -71,7 +71,7 @@ def start_server():
                         'template': 'eficent.ras',
                     },
                 ).content.decode('utf-8'))
-                result_dic.append({
+                result_dic.update({
                     'user_name': [result['inputs']['rfid_read']['serial']],
                     'user_password': [result['inputs']['rfid_read']['passphrase']],
                 })
