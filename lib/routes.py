@@ -16,19 +16,12 @@ import threading
 
 _logger = logging.getLogger(__name__)
 
+import netifaces as ni
 
 def get_ip():
     _logger.debug("Getting IP")
-    command = "hostname -I | awk '{ print $1}' "
-
-    ip_address = (
-        subprocess.check_output(command, shell=True)
-        .decode("utf-8")
-        .strip("\n")
-    )
-
+    ip_address = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
     return ip_address
-
 
 class ServerThread(threading.Thread):
     def __init__(self, app):
