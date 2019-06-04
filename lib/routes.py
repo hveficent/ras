@@ -78,7 +78,7 @@ def start_server():
             with open(os.path.abspath(
                     os.path.join(WORK_DIR, 'dicts/data.json')), 'w+') as outfile:
                 json.dump(result_dic, outfile)
-            return render_template("result.html", result=results)
+            return render_template("result.html", result=result_dic)
 
     @app.route('/login', methods=['POST'])
     def do_admin_login():
